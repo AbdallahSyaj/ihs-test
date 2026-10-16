@@ -1,0 +1,458 @@
+/* Layth Al-Dwairi (L.R.A) */
+.custom_select_style {
+    height: 60px;
+}
+.disabled-link {
+    color: gray; /* Set the text color to gray or any other color you prefer */
+    pointer-events: none; /* Prevents mouse interactions, making the link non-clickable */
+    text-decoration: none; /* Optionally remove underline */
+    cursor: not-allowed; /* Display a "not-allowed" cursor to indicate it's disabled */
+}
+
+.logo-image {
+    border: 2px solid #3498db; /* Add a border with the color of your choice */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: transform 0.3s ease-in-out; /* Add a smooth transition effect */
+    margin-left: 30px; /* Adjust the margin to move the image to the right */
+}
+
+.logo-image:hover {
+    transform: scale(1.1); /* Enlarge the image on hover */
+}
+
+.logo-text {
+    color: #ffffff; /* Set the text color to white */
+    font-weight: bold; /* Make the text bold */
+    transition: color 0.3s ease-in-out; /* Add a smooth color transition effect */
+    margin-left: 5px; /* Add a margin to the left for spacing */
+}
+
+.logo-text:hover {
+    color: #f0f0f0; /* Change the text color on hover */
+    /* transform: scale(1.1); */
+}
+
+.groove-container {
+    border: 2px solid #3498db; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Subtle shadow effect */
+}
+
+.sidebar-item {
+    position: relative;
+}
+
+.sidebar-item .submenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    z-index: 999;
+}
+
+.sidebar-item:hover .submenu {
+    display: block;
+}
+
+.search_bar h2 {
+    font-size: 20px;
+}
+
+.search_bar label {
+    margin-bottom: 0.5rem;
+}
+
+.search_btn {
+    margin-top: 2rem;
+}
+
+.search_bar .form-control {
+    width: 100%;
+}
+
+.search_bar .select2-container {
+    width: 100% !important;
+}
+
+.box-title {
+    background: linear-gradient(to right, #318f94 0%, #5ec58c 100%);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.box-title span,
+.box-title a {
+    color: #ffffff;
+}
+
+.header_row {
+    background-color: #868e96;
+}
+.header_row th {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 400 !important;
+}
+
+.groove-container-orange {
+    border: 2px solid orange; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px orange; /* Subtle purple shadow effect */
+}
+
+.groove-container-pink {
+    border: 2px solid #f5a9c1; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px #f5a9c1; /* Subtle purple shadow effect */
+}
+
+.groove-container-red {
+    border: 2px solid red; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px red; /* Subtle purple shadow effect */
+}
+
+.groove-container-aliceblue {
+    border: 2px solid aliceblue; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px rgba(116, 96, 238, 0.5); /* Subtle purple shadow effect */
+}
+
+/* added by Qusai Alnablse */
+.groove-container {
+    border: 2px solid #3498db; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Subtle shadow effect */
+}
+
+.groove-container-green {
+    border: 2px solid green; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5); /* Subtle green shadow effect */
+}
+
+.groove-container-pur {
+    border: 2px solid #7460ee; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px #7460ee; /* Subtle purple shadow effect */
+}
+
+/* cadetblue */
+.groove-container-cadetblue {
+    border: 2px solid cadetblue; /* Border color */
+    border-radius: 8px; /* Border radius for rounded corners */
+    padding: 15px; /* Padding inside the container */
+    box-shadow: 0 0 10px cadetblue; /* Cadet Blue shadow */
+}
+
+.bg-pink {
+    background-color: #f5a9c1 !important;
+}
+
+.bg-black {
+    background-color: black !important;
+}
+
+.bg-yellowgreen {
+    background-color: yellowgreen !important;
+}
+
+.bg-orangered {
+    background-color: orangered !important;
+}
+
+.bg-idk {
+    background-color: #5ec58c !important;
+}
+
+.bg-blueviolet {
+    background-color: blueviolet !important;
+}
+
+.bg-Contract {
+    background-color: tomato !important;
+}
+
+.card.w-100.groove-container-cadetblue.customHeight {
+    height: 575px;
+    overflow: auto;
+}
+
+.disabled-link {
+    pointer-events: none; /* Disable clicking */
+    opacity: 0.6; /* Optional: Make it look disabled */
+    cursor: not-allowed; /* Optional: Change cursor to indicate it's disabled */
+}
+
+.bg-call-later {
+    background-color: #ffa500; /* Orange */
+}
+
+.bg-meeting-request {
+    background-color: #007bff; /* Blue */
+}
+
+.bg-meeting-result {
+    background-color: #28a745; /* Green */
+}
+
+.bg-offers {
+    background-color: #ffc107; /* Yellow */
+}
+
+.bg-contracts {
+    background-color: #6f42c1; /* Purple */
+}
+
+.bg-NotInreusted {
+    background-color: red; /* Purple */
+}
+
+.box {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.bg-silver {
+    background-color: silver !important;
+}
+
+/* Stats Container Layout */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Stat Card Base Styles */
+.stat-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-right: 4px solid #ddd;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-info h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.stat-info p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+.stat-info h4 {
+    color: #3498db;
+}
+
+a.stat-card {
+    color: inherit;
+    text-decoration: none;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon i {
+    font-size: 24px;
+}
+
+/* Custom colors for different stats */
+.stat-about {
+    border-right-color: #3498db;
+}
+
+.stat-about .stat-icon {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+}
+
+.stat-contact {
+    border-right-color: #2ecc71;
+}
+
+.stat-contact .stat-icon {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+}
+
+.stat-request {
+    border-right-color: #27ae60;
+}
+
+.stat-request .stat-icon {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.stat-privacy {
+    border-right-color: #f39c12;
+}
+
+.stat-privacy .stat-icon {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.stat-terms {
+    border-right-color: #e67e22;
+}
+
+.stat-terms .stat-icon {
+    background-color: rgba(230, 126, 34, 0.1);
+    color: #e67e22;
+}
+
+.stat-users {
+    border-right-color: #9b59b6;
+}
+
+.stat-users .stat-icon {
+    background-color: rgba(155, 89, 182, 0.1);
+    color: #9b59b6;
+}
+
+.stat-admins {
+    border-right-color: #8e44ad;
+}
+
+.stat-admins .stat-icon {
+    background-color: rgba(142, 68, 173, 0.1);
+    color: #8e44ad;
+}
+
+.stat-sliders {
+    border-right-color: #16a085;
+}
+
+.stat-sliders .stat-icon {
+    background-color: rgba(22, 160, 133, 0.1);
+    color: #16a085;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .stats-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .stat-info h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        width: 100%;
+    }
+}
+
+/* Time display styling */
+.time-display .btn {
+    font-weight: 500;
+}
+
+/* ==========================================================
+   RTL fixes for the header navbar (language + profile
+   dropdowns). The bundled Bootstrap build only ships physical
+   margin-right/margin-left for .me-*/.ms-* utilities (no
+   logical/RTL-aware CSS and no Popper positioning here), so
+   under dir="rtl" the nav group lands on the wrong side and the
+   dropdown panel renders detached from its toggle.
+   ========================================================== */
+[dir="rtl"] .navbar-nav.me-auto {
+    margin-right: 0 !important;
+    margin-left: auto !important;
+}
+
+[dir="rtl"] .topbar .navbar-nav .dropdown-menu {
+    right: auto;
+    left: 0;
+    text-align: right;
+}
+
+[dir="rtl"] .topbar .dropdown-toggle .ms-2 {
+    margin-left: 0 !important;
+    margin-right: .5rem !important;
+}
+
+[dir="rtl"] .user-dd .me-3 {
+    margin-right: 0 !important;
+    margin-left: 1rem !important;
+}
+
+[dir="rtl"] .user-dd .dropdown-item i.me-2 {
+    margin-right: 0 !important;
+    margin-left: .5rem !important;
+}
+
+/* ==========================================================
+   DataTables pagination pill under RTL. The browser's own
+   bidi reordering already puts "Previous" on the visual right
+   and "Next" on the visual left (correct, mirrored) - Bootstrap's
+   :first-child/:last-child border-radius rules stay tied to DOM
+   order though, so the rounded corners end up on the *inner*
+   edges of the pill instead of the outer ones.
+   ========================================================== */
+[dir="rtl"] .pagination .page-item:first-child .page-link {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+[dir="rtl"] .pagination .page-item:last-child .page-link {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}

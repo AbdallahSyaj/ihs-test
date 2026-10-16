@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Jost:wght@200;300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #090A0C;
+  color: #F1F0EC;
+  font-family: 'Jost', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(185, 160, 106, 0.25);
+  color: #F1F0EC;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090A0C;
+}
+::-webkit-scrollbar-thumb {
+  background: #22262B;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2D333A;
+}
+
+@layer components {
+  .container-lux {
+    @apply mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16;
+  }
+
+  .nav-link {
+    @apply relative text-sm font-light tracking-wide text-ash transition-colors duration-300 hover:text-cream;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .nav-link-active {
+    @apply text-cream;
+  }
+
+  .nav-link-active::after {
+    @apply w-full;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 bg-gold px-8 py-3.5 text-xs font-medium uppercase tracking-ultra-wide text-ink-deep transition-all duration-300 hover:bg-gold-light hover:shadow-[0_0_30px_rgba(185,160,106,0.25)] active:scale-[0.98];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border border-silver-muted/40 px-8 py-3.5 text-xs font-medium uppercase tracking-ultra-wide text-cream transition-all duration-300 hover:border-gold hover:text-gold active:scale-[0.98];
+  }
+
+  .input-lux {
+    @apply w-full bg-ink-charcoal/60 border border-silver-muted/20 px-4 py-2.5 text-sm font-light text-cream placeholder:text-ash/50 transition-all duration-300 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30;
+  }
+
+  .label-lux {
+    @apply mb-2 block text-xs font-medium uppercase tracking-ultra-wide text-silver-muted;
+  }
+
+  .section-label {
+    @apply flex items-center gap-3 text-xs font-medium uppercase tracking-ultra-wide text-gold;
+  }
+
+  .section-label::before {
+    content: '';
+    @apply h-px w-8 bg-gold/50;
+  }
+
+  .divider-gold {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-gold/30 to-transparent;
+  }
+}
+
+.gold-text {
+  color: #B9A06A;
+}
+
+.hairline {
+  border-color: rgba(174, 179, 184, 0.12);
+}

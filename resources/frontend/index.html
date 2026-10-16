@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxury Gold Prospecting Store UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/pages/home.css" />
+  </head>
+  <body data-page="home">
+    <div class="app-locked">
+      <div class="include-slot" data-include="partials/header.html"></div>
+      <main>
+        <div class="home animate-fade-in">
+          <div class="home__bg">
+            <img src="https://images.pexels.com/photos/12683080/pexels-photo-12683080.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop" alt="Professional gold detecting in the field" />
+            <div class="home__veil-y"></div>
+            <div class="home__veil-x"></div>
+          </div>
+          <div class="container-lux home__content">
+            <div class="home__copy">
+              <div class="section-label animate-fade-down">Professional Gold Detection Equipment</div>
+              <h1 class="home__title animate-fade-up" style="animation-delay: 100ms">
+                Precision Beneath<br />
+                <span class="gold-text">the Surface.</span>
+              </h1>
+              <p class="home__lead animate-fade-up" style="animation-delay: 200ms">
+                Professional-grade gold detectors, metal detectors, and prospecting equipment — engineered for those who read the earth with intent.
+              </p>
+              <div class="home__actions animate-fade-up" style="animation-delay: 300ms">
+                <a href="products.html" class="btn-gold">
+                  Explore Equipment
+                  <svg class="icon icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+                <a href="about.html" class="btn-outline">Discover Our Brand</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="include-slot" data-include="partials/footer.html"></div>
+    </div>
+    <script src="js/nav.js"></script>
+    <script src="js/include.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+:root {
+  --ink-deep: #090a0c;
+  --ink-charcoal: #15171a;
+  --ink-slate: #1c1f23;
+  --ink-raised: #22262b;
+  --gold: #b9a06a;
+  --gold-light: #b9a06a;
+  --silver: #aeb3b8;
+  --silver-muted: #7a7e83;
+  --cream: #f1f0ec;
+  --ash: #a0a2a5;
+  --red-400: #f87171;
+  --green-500: #22c55e;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Jost", system-ui, sans-serif;
+  --tracking-wide: 0.025em;
+  --tracking-ultra-wide: 0.25em;
+  --tracking-mega: 0.35em;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --container-max: 1440px;
+}

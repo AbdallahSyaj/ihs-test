@@ -1,0 +1,481 @@
+export interface ProductSpec {
+  label: string;
+  value: string;
+}
+
+export interface ProductVariant {
+  name: string;
+  options: string[];
+}
+
+export interface ProductAccessory {
+  name: string;
+  qty: string;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  model: string;
+  category: string;
+  categoryLabel: string;
+  description: string;
+  longDescription: string;
+  price: string;
+  badge?: string;
+  image: string;
+  gallery: string[];
+  specs: ProductSpec[];
+  variants: ProductVariant[];
+  accessories: ProductAccessory[];
+  compatibility: string;
+}
+
+export const categories = [
+  { id: 'gold-detectors', label: 'Gold Detectors' },
+  { id: 'metal-detectors', label: 'Metal Detectors' },
+  { id: 'prospecting', label: 'Prospecting Equipment' },
+  { id: 'search-coils', label: 'Search Coils' },
+  { id: 'batteries', label: 'Batteries & Chargers' },
+  { id: 'accessories', label: 'Detector Accessories' },
+];
+
+export const products: Product[] = [
+  {
+    id: 'aurum-pro-x1',
+    name: 'Aurum Pro X1',
+    model: 'APX-1100',
+    category: 'gold-detectors',
+    categoryLabel: 'Gold Detectors',
+    description: 'Professional pulse-induction gold detector engineered for extreme mineralization and deep target recovery.',
+    longDescription: 'The Aurum Pro X1 is a professional-grade pulse induction gold detector built for the most demanding prospecting environments. Its advanced ground balancing system adapts to highly mineralized soils, while the multi-frequency architecture allows precise discrimination between precious metals and ground noise. Designed for extended field sessions, the ergonomic shaft and balanced weight distribution reduce fatigue during long searches.',
+    price: '$4,280',
+    badge: 'New',
+    image: 'https://images.pexels.com/photos/12683080/pexels-photo-12683080.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/12683080/pexels-photo-12683080.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/19265071/pexels-photo-19265071.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930094/pexels-photo-3930094.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Detection Technology', value: 'Pulse Induction' },
+      { label: 'Operating Frequency', value: 'Multi-frequency' },
+      { label: 'Ground Balance', value: 'Automatic + Manual' },
+      { label: 'Weight', value: '1.42 kg (3.1 lbs)' },
+      { label: 'Power Supply', value: 'Lithium-ion, 12V' },
+      { label: 'Battery Life', value: 'Up to 18 hours' },
+      { label: 'Water Resistance', value: 'IP68 rated' },
+      { label: 'Warranty', value: '3 years limited' },
+    ],
+    variants: [
+      { name: 'Coil Size', options: ['11-inch', '13-inch', '15-inch'] },
+      { name: 'Configuration', options: ['Standard Kit', 'Advanced Kit'] },
+    ],
+    accessories: [
+      { name: 'Control Unit', qty: '1' },
+      { name: 'Search Coil', qty: '1' },
+      { name: 'Telescopic Shaft', qty: '1' },
+      { name: 'Lithium-ion Battery Pack', qty: '1' },
+      { name: 'Battery Charger', qty: '1' },
+      { name: 'Carry Case', qty: '1' },
+      { name: 'User Manual', qty: '1' },
+    ],
+    compatibility: 'Compatible with all Aurum-series coils and accessories. The Advanced Kit includes the 15-inch deep-seeking coil and premium carry harness.',
+  },
+  {
+    id: 'aurum-scout-s2',
+    name: 'Aurum Scout S2',
+    model: 'ASS-2200',
+    category: 'gold-detectors',
+    categoryLabel: 'Gold Detectors',
+    description: 'Compact ultra-lightweight gold detector designed for shallow-to-mid depth prospecting in varied terrain.',
+    longDescription: 'The Aurum Scout S2 delivers professional detection capability in a remarkably compact and lightweight package. Ideal for prospectors who cover significant ground, the Scout S2 features a rapid-target-response system and intuitive interface, making it suitable for both experienced operators and those new to gold detection.',
+    price: '$2,650',
+    image: 'https://images.pexels.com/photos/6728037/pexels-photo-6728037.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/6728037/pexels-photo-6728037.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930092/pexels-photo-3930092.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930093/pexels-photo-3930093.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/19265071/pexels-photo-19265071.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Detection Technology', value: 'VLF Induction Balance' },
+      { label: 'Operating Frequency', value: '18 kHz' },
+      { label: 'Ground Balance', value: 'Automatic' },
+      { label: 'Weight', value: '0.98 kg (2.2 lbs)' },
+      { label: 'Power Supply', value: 'Lithium-ion, 9V' },
+      { label: 'Battery Life', value: 'Up to 14 hours' },
+      { label: 'Water Resistance', value: 'IP65 rated' },
+      { label: 'Warranty', value: '2 years limited' },
+    ],
+    variants: [
+      { name: 'Coil Size', options: ['9-inch', '11-inch'] },
+      { name: 'Color', options: ['Black', 'Silver'] },
+    ],
+    accessories: [
+      { name: 'Control Unit', qty: '1' },
+      { name: 'Search Coil', qty: '1' },
+      { name: 'Telescopic Shaft', qty: '1' },
+      { name: 'Battery Pack', qty: '1' },
+      { name: 'USB Charger', qty: '1' },
+    ],
+    compatibility: 'Compatible with Aurum Scout-series coils. The 11-inch coil option provides extended coverage for open-field searches.',
+  },
+  {
+    id: 'terra-vantage-v3',
+    name: 'Terra Vantage V3',
+    model: 'TVV-3300',
+    category: 'metal-detectors',
+    categoryLabel: 'Metal Detectors',
+    description: 'Versatile multi-purpose metal detector with advanced discrimination for relic hunting and general detection.',
+    longDescription: 'The Terra Vantage V3 is a versatile all-terrain metal detector suitable for relic hunting, coin shooting, and general-purpose detection. Its advanced discrimination system allows operators to filter unwanted targets, while the adjustable sensitivity and threshold settings provide precise control across diverse ground conditions.',
+    price: '$1,890',
+    image: 'https://images.pexels.com/photos/35093341/pexels-photo-35093341.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/35093341/pexels-photo-35093341.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/37146834/pexels-photo-37146834.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/39826625/pexels-photo-39826625.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Detection Technology', value: 'VLF Induction Balance' },
+      { label: 'Operating Frequency', value: '7.5 kHz' },
+      { label: 'Discrimination', value: 'Notch + Full Range' },
+      { label: 'Weight', value: '1.28 kg (2.8 lbs)' },
+      { label: 'Power Supply', value: 'AA Batteries, 8x' },
+      { label: 'Battery Life', value: 'Up to 22 hours' },
+      { label: 'Water Resistance', value: 'IP54 rated' },
+      { label: 'Warranty', value: '2 years limited' },
+    ],
+    variants: [
+      { name: 'Coil Size', options: ['8-inch', '11-inch'] },
+      { name: 'Accessory Bundle', options: ['Detector Only', 'Detector with Accessories'] },
+    ],
+    accessories: [
+      { name: 'Control Unit', qty: '1' },
+      { name: 'Search Coil', qty: '1' },
+      { name: '3-Piece Shaft', qty: '1' },
+      { name: 'Battery Pack', qty: '1' },
+      { name: 'Headphones', qty: '1' },
+    ],
+    compatibility: 'Compatible with Terra-series coils and accessories. The accessory bundle includes a pinpointer, carry bag, and rain cover.',
+  },
+  {
+    id: 'terra-compact-c1',
+    name: 'Terra Compact C1',
+    model: 'TCC-1100',
+    category: 'metal-detectors',
+    categoryLabel: 'Metal Detectors',
+    description: 'Lightweight entry-level metal detector with intuitive controls for recreational and hobbyist detecting.',
+    longDescription: 'The Terra Compact C1 is a user-friendly metal detector designed for recreational detecting and beginners. With preset modes and an intuitive interface, the C1 delivers reliable performance across parks, beaches, and light terrain without the complexity of advanced settings.',
+    price: '$780',
+    image: 'https://images.pexels.com/photos/37144352/pexels-photo-37144352.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/37144352/pexels-photo-37144352.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930093/pexels-photo-3930093.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930094/pexels-photo-3930094.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930092/pexels-photo-3930092.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Detection Technology', value: 'VLF' },
+      { label: 'Operating Frequency', value: '6.5 kHz' },
+      { label: 'Discrimination', value: '3-Tone' },
+      { label: 'Weight', value: '1.05 kg (2.3 lbs)' },
+      { label: 'Power Supply', value: 'AA Batteries, 4x' },
+      { label: 'Battery Life', value: 'Up to 20 hours' },
+      { label: 'Water Resistance', value: 'IP44 rated' },
+      { label: 'Warranty', value: '1 year limited' },
+    ],
+    variants: [
+      { name: 'Color', options: ['Black', 'Silver'] },
+    ],
+    accessories: [
+      { name: 'Control Unit', qty: '1' },
+      { name: 'Search Coil', qty: '1' },
+      { name: 'Shaft Assembly', qty: '1' },
+      { name: 'User Guide', qty: '1' },
+    ],
+    compatibility: 'Compatible with Terra Compact-series coils. Ideal for park, beach, and shallow-field detecting.',
+  },
+  {
+    id: 'aurum-sluice-max',
+    name: 'Aurum Sluice Max',
+    model: 'ASM-5000',
+    category: 'prospecting',
+    categoryLabel: 'Prospecting Equipment',
+    description: 'Portable folding sluice box with precision-engineered riffles for efficient gold recovery in streams.',
+    longDescription: 'The Aurum Sluice Max is a portable, folding sluice box engineered for efficient fine-gold recovery in moving water. The precision-machined riffle system creates optimal vortex action, while the lightweight aluminum frame folds compactly for backcountry transport. Includes a classifier adapter for seamless integration with standard 5-gallon panning setups.',
+    price: '$340',
+    image: 'https://images.pexels.com/photos/38011584/pexels-photo-38011584.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/38011584/pexels-photo-38011584.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/12598625/pexels-photo-12598625.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/36188651/pexels-photo-36188651.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Material', value: 'Aircraft-grade Aluminum' },
+      { label: 'Length (Extended)', value: '122 cm (48 in)' },
+      { label: 'Length (Folded)', value: '61 cm (24 in)' },
+      { label: 'Width', value: '30 cm (12 in)' },
+      { label: 'Weight', value: '3.2 kg (7 lbs)' },
+      { label: 'Riffle Type', value: 'Hungarian + Expanded Metal' },
+      { label: 'Carpet', value: 'Miner\'s Moss Included' },
+      { label: 'Warranty', value: '1 year limited' },
+    ],
+    variants: [
+      { name: 'Size', options: ['Standard 48-inch', 'Compact 36-inch'] },
+    ],
+    accessories: [
+      { name: 'Sluice Box', qty: '1' },
+      { name: 'Miner\'s Moss', qty: '1' },
+      { name: 'Classifier Adapter', qty: '1' },
+      { name: 'Carry Strap', qty: '1' },
+    ],
+    compatibility: 'Pairs with the Aurum Pan Series and standard 5-gallon classifiers. The Compact 36-inch variant is optimized for backpack transport.',
+  },
+  {
+    id: 'aurum-pan-classic',
+    name: 'Aurum Pan Classic',
+    model: 'APC-1400',
+    category: 'prospecting',
+    categoryLabel: 'Prospecting Equipment',
+    description: 'Professional gold pan with deep riffles and dual-color surface for high-contrast gold visibility.',
+    longDescription: 'The Aurum Pan Classic is a professional-grade gold pan featuring deep riffles for efficient material processing and a dual-color surface that maximizes gold visibility against the pan floor. The wide, shallow design allows for smooth swirling action, while the textured bottom prevents fine gold from sliding out during panning.',
+    price: '$45',
+    image: 'https://images.pexels.com/photos/12598625/pexels-photo-12598625.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/12598625/pexels-photo-12598625.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/38011584/pexels-photo-38011584.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/36188651/pexels-photo-36188651.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930092/pexels-photo-3930092.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Diameter', value: '35 cm (14 in)' },
+      { label: 'Material', value: 'High-impact ABS' },
+      { label: 'Riffle Type', value: 'Deep + Micro' },
+      { label: 'Surface', value: 'Dual-color (Black/Gold)' },
+      { label: 'Weight', value: '0.34 kg (12 oz)' },
+      { label: 'Warranty', value: 'Lifetime replacement' },
+    ],
+    variants: [
+      { name: 'Size', options: ['14-inch', '10-inch'] },
+      { name: 'Color', options: ['Black', 'Green'] },
+    ],
+    accessories: [
+      { name: 'Gold Pan', qty: '1' },
+      { name: 'Suction Tweezers', qty: '1' },
+      { name: 'Vial', qty: '2' },
+    ],
+    compatibility: 'Works with all Aurum prospecting kits. The 10-inch variant is ideal for final cleanup and fine-gold separation.',
+  },
+  {
+    id: 'aurum-coil-11',
+    name: 'Aurum Coil 11"',
+    model: 'ACO-1100',
+    category: 'search-coils',
+    categoryLabel: 'Search Coils',
+    description: '11-inch DD search coil offering balanced sensitivity and ground coverage for general prospecting.',
+    longDescription: 'The Aurum Coil 11-inch is a Double-D design search coil that provides excellent ground balance stability in mineralized soils. The DD configuration reduces electromagnetic interference and offers a narrower detection blade, making it ideal for trash-littered areas where precise target separation is critical.',
+    price: '$220',
+    image: 'https://images.pexels.com/photos/19265071/pexels-photo-19265071.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/19265071/pexels-photo-19265071.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930094/pexels-photo-3930094.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930093/pexels-photo-3930093.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Type', value: 'Double-D' },
+      { label: 'Diameter', value: '28 cm (11 in)' },
+      { label: 'Housing', value: 'Sealed Polymer' },
+      { label: 'Waterproof', value: 'Fully submersible' },
+      { label: 'Weight', value: '0.42 kg (15 oz)' },
+      { label: 'Cable Length', value: '1.8 m (6 ft)' },
+      { label: 'Compatibility', value: 'Aurum Pro, Scout series' },
+      { label: 'Warranty', value: '2 years' },
+    ],
+    variants: [
+      { name: 'Configuration', options: ['Standard Kit', 'Advanced Kit'] },
+    ],
+    accessories: [
+      { name: 'Search Coil', qty: '1' },
+      { name: 'Mounting Hardware', qty: '1 set' },
+      { name: 'Cable Protector', qty: '1' },
+    ],
+    compatibility: 'Compatible with Aurum Pro X1, Aurum Scout S2, and Terra Vantage V3 detectors. The Advanced Kit includes a coil cover and spare lower shaft.',
+  },
+  {
+    id: 'aurum-coil-15',
+    name: 'Aurum Coil 15"',
+    model: 'ACO-1500',
+    category: 'search-coils',
+    categoryLabel: 'Search Coils',
+    description: '15-inch deep-seeking search coil for maximum depth penetration in low-trash open ground.',
+    longDescription: 'The Aurum Coil 15-inch is designed for maximum depth penetration in open, low-trash environments. Its larger detection field covers more ground per sweep, making it ideal for deep-target relic hunting and wide-area surveys. The sealed polymer housing ensures full waterproof operation in streams and shallow water.',
+    price: '$295',
+    badge: 'New',
+    image: 'https://images.pexels.com/photos/3930094/pexels-photo-3930094.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/3930094/pexels-photo-3930094.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930093/pexels-photo-3930093.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/19265071/pexels-photo-19265071.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Type', value: 'Concentric' },
+      { label: 'Diameter', value: '38 cm (15 in)' },
+      { label: 'Housing', value: 'Sealed Polymer' },
+      { label: 'Waterproof', value: 'Fully submersible' },
+      { label: 'Weight', value: '0.58 kg (20 oz)' },
+      { label: 'Cable Length', value: '1.8 m (6 ft)' },
+      { label: 'Compatibility', value: 'Aurum Pro series' },
+      { label: 'Warranty', value: '2 years' },
+    ],
+    variants: [],
+    accessories: [
+      { name: 'Search Coil', qty: '1' },
+      { name: 'Coil Cover', qty: '1' },
+      { name: 'Mounting Hardware', qty: '1 set' },
+    ],
+    compatibility: 'Compatible exclusively with the Aurum Pro X1. Not compatible with Scout or Terra series detectors.',
+  },
+  {
+    id: 'aurum-battery-pack',
+    name: 'Aurum Battery Pack',
+    model: 'ABP-1200',
+    category: 'batteries',
+    categoryLabel: 'Batteries & Chargers',
+    description: 'High-capacity lithium-ion replacement battery pack with LED charge indicator for Aurum Pro series.',
+    longDescription: 'The Aurum Battery Pack is a high-capacity lithium-ion power unit designed as a replacement or spare for the Aurum Pro X1 detector. The integrated LED charge indicator provides at-a-glance battery status, while the ruggedized housing withstands harsh field conditions including dust, moisture, and impact.',
+    price: '$120',
+    image: 'https://images.pexels.com/photos/1334602/pexels-photo-1334602.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/1334602/pexels-photo-1334602.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/19265071/pexels-photo-19265071.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930093/pexels-photo-3930093.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Type', value: 'Lithium-ion' },
+      { label: 'Capacity', value: '3200 mAh' },
+      { label: 'Voltage', value: '12V' },
+      { label: 'Charge Time', value: '3.5 hours' },
+      { label: 'Cycle Life', value: '500+ cycles' },
+      { label: 'Operating Temp', value: '-10°C to 50°C' },
+      { label: 'Indicator', value: '4-LED charge display' },
+      { label: 'Warranty', value: '1 year' },
+    ],
+    variants: [],
+    accessories: [
+      { name: 'Battery Pack', qty: '1' },
+    ],
+    compatibility: 'Compatible exclusively with the Aurum Pro X1. Not compatible with Scout S2 or Terra series detectors.',
+  },
+  {
+    id: 'aurum-charger-dual',
+    name: 'Aurum Dual Charger',
+    model: 'ADC-1000',
+    category: 'batteries',
+    categoryLabel: 'Batteries & Chargers',
+    description: 'Dual-bay smart charger with USB-C output and adaptive charge monitoring for Aurum battery packs.',
+    longDescription: 'The Aurum Dual Charger is a smart charging station capable of simultaneously charging two Aurum battery packs. The adaptive charge monitoring system prevents overcharging, while the USB-C output doubles as a power bank for field devices. An LCD display shows real-time charge status for each bay.',
+    price: '$85',
+    image: 'https://images.pexels.com/photos/10885669/pexels-photo-10885669.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/10885669/pexels-photo-10885669.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930092/pexels-photo-3930092.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930094/pexels-photo-3930094.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Input', value: 'USB-C PD, 5V/3A' },
+      { label: 'Output', value: '12V/1.5A per bay' },
+      { label: 'Bays', value: '2' },
+      { label: 'Display', value: 'LCD status' },
+      { label: 'Safety', value: 'Overcharge protection' },
+      { label: 'Power Bank', value: 'Yes, 5V/2A output' },
+      { label: 'Weight', value: '0.18 kg (6.3 oz)' },
+      { label: 'Warranty', value: '1 year' },
+    ],
+    variants: [],
+    accessories: [
+      { name: 'Dual Charger', qty: '1' },
+      { name: 'USB-C Cable', qty: '1' },
+    ],
+    compatibility: 'Charges all Aurum Pro and Scout series battery packs. USB-C power bank function works with any compatible device.',
+  },
+  {
+    id: 'aurum-headphones',
+    name: 'Aurum Field Headphones',
+    model: 'AFH-2000',
+    category: 'accessories',
+    categoryLabel: 'Detector Accessories',
+    description: 'Weatherproof over-ear headphones with gold-plated connector and noise-isolating design for clear target audio.',
+    longDescription: 'The Aurum Field Headphones are purpose-built for metal detecting, with a noise-isolating over-ear design that ensures clear target audio in windy or noisy environments. The weatherproof construction withstands dust and light rain, while the padded headband provides comfort during extended detecting sessions.',
+    price: '$110',
+    image: 'https://images.pexels.com/photos/11398246/pexels-photo-11398246.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/11398246/pexels-photo-11398246.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3721941/pexels-photo-3721941.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930093/pexels-photo-3930093.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Type', value: 'Over-ear, closed-back' },
+      { label: 'Connector', value: '6.35mm, gold-plated' },
+      { label: 'Impedance', value: '32 ohm' },
+      { label: 'Cable Length', value: '1.5 m (5 ft)' },
+      { label: 'Weatherproof', value: 'IPX4 rated' },
+      { label: 'Weight', value: '0.28 kg (9.9 oz)' },
+      { label: 'Pad Material', value: 'Memory foam, protein leather' },
+      { label: 'Warranty', value: '1 year' },
+    ],
+    variants: [
+      { name: 'Color', options: ['Black', 'Silver'] },
+    ],
+    accessories: [
+      { name: 'Headphones', qty: '1' },
+      { name: '3.5mm Adapter', qty: '1' },
+      { name: 'Carry Pouch', qty: '1' },
+    ],
+    compatibility: 'Fits all Aurum and Terra series detectors with standard 6.35mm or 3.5mm headphone jacks. Includes adapter for both connector sizes.',
+  },
+  {
+    id: 'aurum-carry-harness',
+    name: 'Aurum Pro Harness',
+    model: 'APH-3000',
+    category: 'accessories',
+    categoryLabel: 'Detector Accessories',
+    description: 'Ergonomic chest harness with padded straps for extended detecting sessions with heavy detector rigs.',
+    longDescription: 'The Aurum Pro Harness is an ergonomic support system that redistributes detector weight from the arm to the shoulders and chest, enabling extended detecting sessions without fatigue. The padded shoulder straps and adjustable chest plate provide a custom fit, while the quick-release mechanism allows rapid removal in the field.',
+    price: '$165',
+    image: 'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+    gallery: [
+      'https://images.pexels.com/photos/3930091/pexels-photo-3930091.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930092/pexels-photo-3930092.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930094/pexels-photo-3930094.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+      'https://images.pexels.com/photos/3930093/pexels-photo-3930093.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop',
+    ],
+    specs: [
+      { label: 'Material', value: 'Ballistic nylon + mesh' },
+      { label: 'Adjustable Points', value: '5' },
+      { label: 'Pad Material', value: 'Closed-cell foam' },
+      { label: 'Quick Release', value: 'Buckle system' },
+      { label: 'Weight Capacity', value: 'Up to 3.5 kg (7.7 lbs)' },
+      { label: 'Size', value: 'One size, adjustable' },
+      { label: 'Weight', value: '0.45 kg (1 lb)' },
+      { label: 'Warranty', value: '2 years' },
+    ],
+    variants: [
+      { name: 'Configuration', options: ['Standard Kit', 'Advanced Kit'] },
+    ],
+    accessories: [
+      { name: 'Chest Harness', qty: '1' },
+      { name: 'Bungee Cord', qty: '1' },
+      { name: 'Mounting Clip', qty: '1' },
+    ],
+    compatibility: 'Fits all Aurum Pro and Terra Vantage series detectors. The Advanced Kit includes a spare bungee cord and rain cover.',
+  },
+];

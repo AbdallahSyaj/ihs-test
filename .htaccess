@@ -1,0 +1,38 @@
+
+Options -MultiViews -Indexes
+
+Header always set Strict-Transport-Security "max-age=16070400; includeSubDomains"
+
+RewriteEngine On
+
+# Handle Authorization Header
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# ------------------------------------------------------------------
+# Compensating control: this app is served with the project root as
+# the web root (instead of public/), so block direct HTTP access to
+# everything that isn't meant to be public. Uploaded files stay
+# reachable under storage/images/ and storage/videos/ since existing
+# asset() calls and stored DB paths depend on them.
+# ------------------------------------------------------------------
+RewriteRule ^(app|bootstrap|config|database|resources|routes|tests|vendor)(/|$) - [F,L]
+RewriteRule ^storage/(?!images/|videos/) - [F,L]
+RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|phpstan\.neon|artisan|README\.md|vite\.config\.js|tailwind\.config\.js|postcss\.config\.js)$ - [F,L]
+RewriteRule ^\.git(/|$) - [F,L]
+
+# Redirect Trailing Slashes If Not A Folder...
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301]
+
+# Send Requests To Front Controller...
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+
+# Block Hidden Files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
