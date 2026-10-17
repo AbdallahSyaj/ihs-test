@@ -45,6 +45,8 @@ class ContactUsBackendController extends Controller
             // Prepare Data :
             $validated = $request->validated();
             $hours = $validated['hours'] ?? null;
+            $pageTitleEn = $validated['page_title_en'] ?? null;
+            $pageIntroEn = $validated['page_intro_en'] ?? null;
 
             $updated_data = [
                 'email' => $validated['email'],
@@ -61,6 +63,8 @@ class ContactUsBackendController extends Controller
                 'tiktok' => $validated['tiktok'] ?? null,
                 'telegram' => $validated['telegram'] ?? null,
                 'hours' => blank($hours) ? null : $hours,
+                'page_title_en' => blank($pageTitleEn) ? null : $pageTitleEn,
+                'page_intro_en' => blank($pageIntroEn) ? null : $pageIntroEn,
             ];
 
             // Update in DB :

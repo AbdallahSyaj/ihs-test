@@ -27,7 +27,12 @@ class PageController extends Controller
 
     public function products(): View
     {
-        return view('frontend.products');
+        $catalog = $this->loadCatalog();
+
+        return view('frontend.products', [
+            'categories' => $catalog['categories'],
+            'products' => $catalog['products'],
+        ]);
     }
 
     public function show(string $slug): View
@@ -40,8 +45,37 @@ class PageController extends Controller
 
         return view('frontend.product-details', [
             'slug' => $slug,
+            'product' => $product,
             'productName' => $product['name'],
         ]);
+    }
+
+    /**
+     * @return array{categories: list<array<string, mixed>>, products: list<array<string, mixed>>}
+     */
+    private function loadCatalog(): array
+    {
+        $empty = ['categories' => [], 'products' => []];
+        $path = public_path('frontend/data/products.json');
+        if (! is_file($path)) {
+            return $empty;
+        }
+
+        $catalog = json_decode((string) file_get_contents($path), true);
+        if (! is_array($catalog)) {
+            return $empty;
+        }
+
+        $categories = $catalog['categories'] ?? null;
+        $products = $catalog['products'] ?? null;
+        if (! is_array($categories) || ! is_array($products)) {
+            return $empty;
+        }
+
+        return [
+            'categories' => $categories,
+            'products' => $products,
+        ];
     }
 
     /**
@@ -49,17 +83,7 @@ class PageController extends Controller
      */
     private function catalogProduct(string $slug): ?array
     {
-        $path = public_path('frontend/data/products.json');
-        if (! is_file($path)) {
-            return null;
-        }
-
-        $catalog = json_decode((string) file_get_contents($path), true);
-        if (! is_array($catalog) || ! is_array($catalog['products'] ?? null)) {
-            return null;
-        }
-
-        foreach ($catalog['products'] as $product) {
+        foreach ($this->loadCatalog()['products'] as $product) {
             if (! is_array($product) || ($product['id'] ?? null) !== $slug) {
                 continue;
             }

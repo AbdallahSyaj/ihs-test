@@ -52,7 +52,14 @@
                   <span>Filter</span>
                 </div>
                 <div class="products-filters__rule"></div>
-                <div id="filter-chips" class="products-filters__chips"></div>
+                <div id="filter-chips" class="products-filters__chips">
+                  <button type="button" class="products-filters__chip is-active" data-category="all">All Equipment</button>
+                  @foreach ($categories as $category)
+                    @if (is_array($category) && isset($category['id'], $category['label']))
+                      <button type="button" class="products-filters__chip" data-category="{{ $category['id'] }}">{{ $category['label'] }}</button>
+                    @endif
+                  @endforeach
+                </div>
               </div>
             </div>
           </section>
@@ -60,9 +67,37 @@
           <section class="products-grid-wrap">
             <div class="container-lux">
               <div class="products-count">
-                <span id="products-count">0 items</span>
+                <span id="products-count">{{ count($products) }} {{ count($products) === 1 ? 'item' : 'items' }}</span>
               </div>
-              <div id="products-grid" class="products-grid"></div>
+              <div id="products-grid" class="products-grid">
+                @foreach ($products as $index => $product)
+                  @if (is_array($product) && isset($product['id'], $product['name'], $product['model'], $product['category'], $product['categoryLabel'], $product['description'], $product['price'], $product['image']))
+                    <a
+                      class="product-card"
+                      href="{{ route('frontend.products.show', $product['id']) }}"
+                      data-category="{{ $product['category'] }}"
+                      style="animation-delay: {{ (int) $index * 80 }}ms"
+                    >
+                      <div class="product-card__image">
+                        <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" loading="lazy" />
+                        @if (! empty($product['badge']))
+                          <span class="badge-gold">{{ $product['badge'] }}</span>
+                        @endif
+                      </div>
+                      <div class="product-card__body">
+                        <span class="product-card__cat">{{ $product['categoryLabel'] }}</span>
+                        <h3 class="product-card__name">{{ $product['name'] }}</h3>
+                        <p class="product-card__model">Model {{ $product['model'] }}</p>
+                        <p class="product-card__desc">{{ $product['description'] }}</p>
+                        <div class="product-card__footer">
+                          <span class="product-card__price">{{ $product['price'] }}</span>
+                          <span class="product-card__cta">View Details →</span>
+                        </div>
+                      </div>
+                    </a>
+                  @endif
+                @endforeach
+              </div>
               <div id="products-empty" class="products-empty" hidden>
                 <p>No equipment matches your search.</p>
                 <button type="button" id="clear-filters">Clear filters</button>
@@ -74,7 +109,5 @@
 
 @section('scripts')
     <script src="{{ asset('frontend/js/nav.js') }}"></script>
-    <script src="{{ asset('frontend/js/icons.js') }}"></script>
-    <script src="{{ asset('frontend/js/products-data.js') }}"></script>
     <script src="{{ asset('frontend/js/products-page.js') }}"></script>
 @endsection

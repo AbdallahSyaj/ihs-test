@@ -96,6 +96,7 @@ return [
             'users' => 'Users',
             'website_layouts' => 'Website Layouts',
             'sliders' => 'Sliders',
+            'categories' => 'Categories',
             'requests' => 'Requests',
             'contact_us_requests' => 'Contact Us Requests',
             'website' => 'Website',
@@ -161,6 +162,8 @@ return [
         'address_ar' => 'Address AR',
         'address_en' => 'Address EN',
         'hours' => 'Business Hours',
+        'page_title_en' => 'Page Title (English)',
+        'page_intro_en' => 'Introductory Description (English)',
     ],
 
     // ==========================================================
@@ -253,6 +256,13 @@ return [
         'reset_successful' => 'Two-factor authentication was reset. The administrator must enroll again at the next sign-in.',
         'use_self_service' => 'Use your own security settings to disable two-factor authentication.',
         'menu_label' => 'Security',
+    ],
+
+    // ==========================================================
+    // Categories admin module
+    // ==========================================================
+    'categories' => [
+        'restore_name_conflict' => 'Cannot restore this category because another active category already uses this name.',
     ],
 
 ];

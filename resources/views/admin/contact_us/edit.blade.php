@@ -36,6 +36,41 @@
                             @csrf
                             <div class="form">
                                 <div class="row">
+                                    {{-- page_title_en --}}
+                                    <div class="col-md-12 mb-3">
+                                        <label class="text-dark font-weight-medium mb-3" for="contact-page-title-en">
+                                            {{ __('dashboard.contact_us.page_title_en') }} :
+                                            <strong class="text-danger">
+                                                @error('page_title_en')
+                                                    - {{ $message }}
+                                                @enderror
+                                            </strong>
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="text" id="contact-page-title-en" name="page_title_en" maxlength="255"
+                                                value="{{ old('page_title_en', isset($contactUs->page_title_en) ? $contactUs->page_title_en : null) }}"
+                                                class="form-control @error('page_title_en') border-danger @enderror"
+                                                placeholder="{{ __('dashboard.contact_us.page_title_en') }}">
+                                        </div>
+                                    </div>
+
+                                    {{-- page_intro_en --}}
+                                    <div class="col-md-12 mb-3">
+                                        <label class="text-dark font-weight-medium mb-3" for="contact-page-intro-en">
+                                            {{ __('dashboard.contact_us.page_intro_en') }} :
+                                            <strong class="text-danger">
+                                                @error('page_intro_en')
+                                                    - {{ $message }}
+                                                @enderror
+                                            </strong>
+                                        </label>
+                                        <div class="input-group">
+                                            <textarea id="contact-page-intro-en" style="width: 90% !important" maxlength="5000"
+                                                class="form-control @error('page_intro_en') border-danger @enderror" name="page_intro_en"
+                                                placeholder="{{ __('dashboard.contact_us.page_intro_en') }}" rows="4">{{ old('page_intro_en', isset($contactUs->page_intro_en) ? $contactUs->page_intro_en : null) }}</textarea>
+                                        </div>
+                                    </div>
+
                                     {{--  email --}}
                                     <div class="col-md-6 mb-3">
                                         <label class="text-dark font-weight-medium mb-3" for="validationServer01">

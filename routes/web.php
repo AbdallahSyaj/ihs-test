@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AboutUsBackendController;
+use App\Http\Controllers\Backend\Admin\CategoryBackendController;
 use App\Http\Controllers\Backend\Admin\AdminBackendController;
 use App\Http\Controllers\Backend\Admin\ContactUsBackendController;
 use App\Http\Controllers\Backend\Admin\ContactUsRequestBackendController;
@@ -152,6 +153,19 @@ Route::group([
                 Route::get('/activeInactiveSingle/{id}', [TermsConditionBackendController::class, 'activeInactiveSingle'])->name('terms_and_conditions-activeInactiveSingle');
                 Route::get('/activeSelected', [TermsConditionBackendController::class, 'activeSelected'])->name('terms_and_conditions-activeSelected');
                 Route::get('/inactiveSelected', [TermsConditionBackendController::class, 'inactiveSelected'])->name('terms_and_conditions-inactiveSelected');
+            });
+
+            // categories :
+            // ==============================================================================
+            Route::group(['prefix' => 'categories'], function () {
+                Route::get('/index', [CategoryBackendController::class, 'index'])->name('categories-index');
+                Route::get('/create', [CategoryBackendController::class, 'create'])->name('categories-create');
+                Route::post('/store', [CategoryBackendController::class, 'store'])->name('categories-store');
+                Route::get('edit/{id}', [CategoryBackendController::class, 'edit'])->name('categories-edit');
+                Route::post('update/{id}', [CategoryBackendController::class, 'update'])->name('categories-update');
+                Route::get('softDelete/{id}', [CategoryBackendController::class, 'softDelete'])->name('categories-softDelete');
+                Route::get('/showSoftDelete', [CategoryBackendController::class, 'showSoftDelete'])->name('categories-showSoftDelete');
+                Route::get('softDeleteRestore/{id}', [CategoryBackendController::class, 'softDeleteRestore'])->name('categories-softDeleteRestore');
             });
 
             // Slider Routes :

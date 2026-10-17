@@ -163,6 +163,102 @@ class ContactBackendTest extends TestCase
             ->assertSee('[Operating hours placeholder]', false);
     }
 
+    public function test_admin_can_save_page_title_and_introductory_description(): void
+    {
+        $admin = Admin::factory()->create();
+        $contact = $this->contactRecord();
+
+        $payload = $this->adminPayload();
+        $payload['page_title_en'] = 'Custom Contact Headline';
+        $payload['page_intro_en'] = "Line one\nLine two";
+
+        $this->actingAs($admin, 'super_admin')
+            ->post(route('super_admin.contact_us-update', $contact->id), $payload)
+            ->assertRedirect(route('super_admin.contact_us-index'));
+
+        $fresh = $contact->fresh();
+        $this->assertSame('Custom Contact Headline', $fresh->page_title_en);
+        $this->assertSame("Line one\nLine two", $fresh->page_intro_en);
+    }
+
+    public function test_public_page_displays_saved_page_title_and_intro(): void
+    {
+        $this->contactRecord([
+            'page_title_en' => 'Reach Our Team',
+            'page_intro_en' => 'Tell us what you need and we will guide you.',
+        ]);
+
+        $this->get(route('frontend.contact'))
+            ->assertOk()
+            ->assertSee('Reach Our Team', false)
+            ->assertSee('Tell us what you need and we will guide you.', false)
+            ->assertSee('gold-text', false)
+            ->assertSee('Equipment.', false);
+    }
+
+    public function test_blank_or_missing_page_copy_uses_hardcoded_fallbacks(): void
+    {
+        $defaultTitle = "Let's Find the Right";
+        $defaultIntro = 'Questions about a product, equipment compatibility, or which detector suits your terrain?';
+
+        $this->get(route('frontend.contact'))
+            ->assertOk()
+            ->assertSee($defaultTitle, false)
+            ->assertSee($defaultIntro, false)
+            ->assertSee('Equipment.', false);
+
+        $contact = $this->contactRecord([
+            'page_title_en' => '   ',
+            'page_intro_en' => " \t\n ",
+        ]);
+
+        $this->get(route('frontend.contact'))
+            ->assertOk()
+            ->assertSee($defaultTitle, false)
+            ->assertSee($defaultIntro, false);
+
+        $contact->update(['page_title_en' => null, 'page_intro_en' => null]);
+
+        $this->get(route('frontend.contact'))
+            ->assertOk()
+            ->assertSee($defaultTitle, false)
+            ->assertSee($defaultIntro, false);
+    }
+
+    public function test_admin_whitespace_page_copy_is_stored_as_null(): void
+    {
+        $admin = Admin::factory()->create();
+        $contact = $this->contactRecord([
+            'page_title_en' => 'Saved title',
+            'page_intro_en' => 'Saved intro',
+        ]);
+
+        $payload = $this->adminPayload();
+        $payload['page_title_en'] = '   ';
+        $payload['page_intro_en'] = '  ';
+
+        $this->actingAs($admin, 'super_admin')
+            ->post(route('super_admin.contact_us-update', $contact->id), $payload)
+            ->assertRedirect(route('super_admin.contact_us-index'));
+
+        $fresh = $contact->fresh();
+        $this->assertNull($fresh->page_title_en);
+        $this->assertNull($fresh->page_intro_en);
+    }
+
+    public function test_public_page_escapes_page_intro_html(): void
+    {
+        $this->contactRecord([
+            'page_intro_en' => '<script>alert(1)</script>',
+        ]);
+
+        $response = $this->get(route('frontend.contact'));
+
+        $response->assertOk();
+        $response->assertSee('&lt;script&gt;alert(1)&lt;/script&gt;', false);
+        $response->assertDontSee('<script>alert(1)</script>', false);
+    }
+
     /**
      * @return array<string, string>
      */

@@ -30,6 +30,8 @@ class UpdateContactUsFormRequest extends FormRequest
             'address_ar' => 'required|string',
             'address_en' => 'required|string',
             'hours' => ['nullable', 'string', 'max:5000'],
+            'page_title_en' => ['nullable', 'string', 'max:255'],
+            'page_intro_en' => ['nullable', 'string', 'max:5000'],
             'facebook' => $this->socialLinkRule(),
             'twitter' => $this->socialLinkRule(),
             'instagram' => $this->socialLinkRule(),

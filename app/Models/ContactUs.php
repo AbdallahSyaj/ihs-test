@@ -31,5 +31,7 @@ class ContactUs extends Model
         'tiktok',
         'telegram',
         'hours',
+        'page_title_en',
+        'page_intro_en',
     ];
 }

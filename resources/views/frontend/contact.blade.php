@@ -13,11 +13,19 @@
             <div class="contact__info">
               <div class="section-label">Contact Us</div>
               <h1 class="contact__title">
-                Let's Find the Right<br />
+                @if (isset($contactUs) && filled($contactUs->page_title_en))
+                  {{ $contactUs->page_title_en }}<br />
+                @else
+                  Let's Find the Right<br />
+                @endif
                 <span class="gold-text">Equipment.</span>
               </h1>
-              <p class="contact__lead">
-                Questions about a product, equipment compatibility, or which detector suits your terrain? Send us a message — we respond with practical, field-informed guidance.
+              <p class="contact__lead"@if (isset($contactUs) && filled($contactUs->page_intro_en)) style="white-space: pre-line" @endif>
+                @if (isset($contactUs) && filled($contactUs->page_intro_en))
+                  {{ $contactUs->page_intro_en }}
+                @else
+                  Questions about a product, equipment compatibility, or which detector suits your terrain? Send us a message — we respond with practical, field-informed guidance.
+                @endif
               </p>
               <div class="divider-gold"></div>
               <div class="contact__cards">
@@ -123,11 +131,15 @@
                 <p class="contact-form__error" id="contact-form-error" hidden></p>
                 <div class="contact-form__submit">
                   <button type="submit" class="btn-gold" id="contact-submit">
-                    <svg class="icon icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg id="contact-submit-icon-default" class="icon icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path d="m22 2-7 20-4-9-9-4Z"></path>
                       <path d="M22 2 11 13"></path>
                     </svg>
-                    Send Message
+                    <svg id="contact-submit-icon-success" class="icon icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+                      <path d="M20 6 9 17l-5-5"></path>
+                    </svg>
+                    <span id="contact-submit-label-default">Send Message</span>
+                    <span id="contact-submit-label-success" hidden>Message Sent</span>
                   </button>
                   <span class="contact-form__thanks animate-fade-in" id="contact-thanks" @unless(session('contact_success')) hidden @endunless>{{ session('contact_success', "Thank you — we'll be in touch shortly.") }}</span>
                 </div>

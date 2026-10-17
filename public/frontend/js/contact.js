@@ -9,8 +9,18 @@ window.AurumOnReady.push(function initContact() {
   var submitted = false;
   var timer = null;
   var submitBtn = document.getElementById("contact-submit");
-  var originalHtml = submitBtn.innerHTML;
+  var submitIconDefault = document.getElementById("contact-submit-icon-default");
+  var submitIconSuccess = document.getElementById("contact-submit-icon-success");
+  var submitLabelDefault = document.getElementById("contact-submit-label-default");
+  var submitLabelSuccess = document.getElementById("contact-submit-label-success");
   var formError = document.getElementById("contact-form-error");
+
+  function setSubmitButtonSuccess(on) {
+    if (submitIconDefault) submitIconDefault.hidden = on;
+    if (submitLabelDefault) submitLabelDefault.hidden = on;
+    if (submitIconSuccess) submitIconSuccess.hidden = !on;
+    if (submitLabelSuccess) submitLabelSuccess.hidden = !on;
+  }
 
   function setError(field, message) {
     var input = form.querySelector('[name="' + field + '"]');
@@ -38,7 +48,7 @@ window.AurumOnReady.push(function initContact() {
   function restoreButton() {
     submitted = false;
     submitBtn.disabled = false;
-    submitBtn.innerHTML = originalHtml;
+    setSubmitButtonSuccess(false);
     var thanks = document.getElementById("contact-thanks");
     if (thanks) thanks.hidden = true;
   }
@@ -49,10 +59,9 @@ window.AurumOnReady.push(function initContact() {
       form.elements[field].value = "";
     });
     var thanks = document.getElementById("contact-thanks");
-    var I = window.AurumIcons;
     submitBtn.disabled = true;
-    if (I) {
-      submitBtn.innerHTML = I.svg("check", "icon icon-4", 1.5) + "Message Sent";
+    if (submitIconSuccess && submitLabelSuccess) {
+      setSubmitButtonSuccess(true);
     }
     if (thanks) {
       thanks.hidden = false;

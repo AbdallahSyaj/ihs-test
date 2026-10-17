@@ -11,122 +11,70 @@ window.AurumOnReady.push(function initProductsPage() {
   var searchEl = document.getElementById("products-search");
   var clearBtn = document.getElementById("clear-filters");
 
+  if (!chipsEl || !gridEl || !countEl || !emptyEl || !searchEl || !clearBtn) return;
+
   var state = { category: "all", query: "" };
-  var products = [];
-  var categories = [];
+  var cards = Array.prototype.slice.call(gridEl.querySelectorAll(".product-card"));
 
-  function card(product, index) {
-    var badge = product.badge
-      ? '<span class="badge-gold">' + product.badge + "</span>"
-      : "";
-    var productBase = (window.AurumPaths && window.AurumPaths.productBase) || "/products";
-    return (
-      '<a class="product-card" href="' +
-      productBase.replace(/\/$/, "") +
-      "/" +
-      encodeURIComponent(product.id) +
-      '" style="animation-delay:' +
-      index * 80 +
-      'ms">' +
-      '<div class="product-card__image">' +
-      '<img src="' +
-      product.image +
-      '" alt="' +
-      product.name +
-      '" loading="lazy">' +
-      badge +
-      "</div>" +
-      '<div class="product-card__body">' +
-      '<span class="product-card__cat">' +
-      product.categoryLabel +
-      "</span>" +
-      ' <h3 class="product-card__name">' +
-      product.name +
-      "</h3>" +
-      '<p class="product-card__model">Model ' +
-      product.model +
-      "</p>" +
-      '<p class="product-card__desc">' +
-      product.description +
-      "</p>" +
-      '<div class="product-card__footer">' +
-      '<span class="product-card__price">' +
-      product.price +
-      "</span>" +
-      '<span class="product-card__cta">View Details →</span>' +
-      "</div></div></a>"
-    );
-  }
+  function cardMatches(card) {
+    var category = card.getAttribute("data-category") || "";
+    var catOk = state.category === "all" || category === state.category;
+    if (!catOk) return false;
 
-  function filtered() {
     var q = state.query.toLowerCase();
-    return products.filter(function (p) {
-      var cat = state.category === "all" || p.category === state.category;
-      var search =
-        q === "" ||
-        p.name.toLowerCase().includes(q) ||
-        p.model.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q);
-      return cat && search;
-    });
+    if (q === "") return true;
+
+    var nameEl = card.querySelector(".product-card__name");
+    var modelEl = card.querySelector(".product-card__model");
+    var descEl = card.querySelector(".product-card__desc");
+    var name = nameEl ? nameEl.textContent.toLowerCase() : "";
+    var model = modelEl ? modelEl.textContent.toLowerCase() : "";
+    var desc = descEl ? descEl.textContent.toLowerCase() : "";
+
+    return name.indexOf(q) !== -1 || model.indexOf(q) !== -1 || desc.indexOf(q) !== -1;
   }
 
   function render() {
-    var list = filtered();
-    countEl.textContent = list.length + (list.length === 1 ? " item" : " items");
+    var visible = 0;
+    cards.forEach(function (card) {
+      var show = cardMatches(card);
+      card.hidden = !show;
+      if (show) visible += 1;
+    });
+
+    countEl.textContent = visible + (visible === 1 ? " item" : " items");
+
     chipsEl.querySelectorAll("[data-category]").forEach(function (btn) {
       btn.classList.toggle("is-active", btn.getAttribute("data-category") === state.category);
     });
-    if (list.length) {
+
+    if (visible) {
       emptyEl.hidden = true;
       gridEl.hidden = false;
-      gridEl.innerHTML = list.map(card).join("");
     } else {
       gridEl.hidden = true;
-      gridEl.innerHTML = "";
       emptyEl.hidden = false;
     }
   }
 
-  window.AurumData.load()
-    .then(function (data) {
-      products = data.products;
-      categories = [{ id: "all", label: "All Equipment" }].concat(data.categories);
-      chipsEl.innerHTML = categories
-        .map(function (cat) {
-          return (
-            '<button type="button" class="products-filters__chip" data-category="' +
-            cat.id +
-            '">' +
-            cat.label +
-            "</button>"
-          );
-        })
-        .join("");
+  chipsEl.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-category]");
+    if (!btn) return;
+    state.category = btn.getAttribute("data-category");
+    render();
+  });
 
-      chipsEl.addEventListener("click", function (e) {
-        var btn = e.target.closest("[data-category]");
-        if (!btn) return;
-        state.category = btn.getAttribute("data-category");
-        render();
-      });
+  searchEl.addEventListener("input", function () {
+    state.query = searchEl.value;
+    render();
+  });
 
-      searchEl.addEventListener("input", function () {
-        state.query = searchEl.value;
-        render();
-      });
+  clearBtn.addEventListener("click", function () {
+    state.category = "all";
+    state.query = "";
+    searchEl.value = "";
+    render();
+  });
 
-      clearBtn.addEventListener("click", function () {
-        state.category = "all";
-        state.query = "";
-        searchEl.value = "";
-        render();
-      });
-
-      render();
-    })
-    .catch(function (err) {
-      countEl.textContent = "Unable to load catalog.";
-      console.error(err);
-    });
+  render();
 });

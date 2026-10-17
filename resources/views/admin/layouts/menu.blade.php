@@ -109,6 +109,15 @@
                                 <span>{{ __('dashboard.shared.modules.sliders') }}</span>
                             </a>
                         </li>
+
+                        {{-- categories --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark"
+                                href="{{ route('super_admin.categories-index') }}">
+                                <i class="mdi mdi-tag-multiple"></i>
+                                <span>{{ __('dashboard.shared.modules.categories') }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
