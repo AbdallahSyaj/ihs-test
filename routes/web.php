@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Admin\AboutUsBackendController;
 use App\Http\Controllers\Backend\Admin\CategoryBackendController;
+use App\Http\Controllers\Backend\Admin\ProductBackendController;
 use App\Http\Controllers\Backend\Admin\AdminBackendController;
 use App\Http\Controllers\Backend\Admin\ContactUsBackendController;
 use App\Http\Controllers\Backend\Admin\ContactUsRequestBackendController;
@@ -27,6 +28,8 @@ Route::get('/products', [PageController::class, 'products'])->name('frontend.pro
 Route::get('/products/{slug}', [PageController::class, 'show'])->name('frontend.products.show');
 Route::get('/contact', [PageController::class, 'contact'])->name('frontend.contact');
 Route::post('/contact', [PageController::class, 'store'])->middleware('throttle:5,1')->name('frontend.contact.store');
+Route::get('/cart', [PageController::class, 'cart'])->name('frontend.cart');
+Route::post('/cart', [PageController::class, 'storeProductInquiry'])->middleware('throttle:5,1')->name('frontend.cart.store');
 
 // Locale prefix wraps ONLY the super_admin group, so it must sit as the outermost
 // group here (the package always reads the locale from the very first URL segment).
@@ -166,6 +169,19 @@ Route::group([
                 Route::get('softDelete/{id}', [CategoryBackendController::class, 'softDelete'])->name('categories-softDelete');
                 Route::get('/showSoftDelete', [CategoryBackendController::class, 'showSoftDelete'])->name('categories-showSoftDelete');
                 Route::get('softDeleteRestore/{id}', [CategoryBackendController::class, 'softDeleteRestore'])->name('categories-softDeleteRestore');
+            });
+
+            Route::group(['prefix' => 'products'], function () {
+                Route::get('/index', [ProductBackendController::class, 'index'])->name('products-index');
+                Route::get('/create', [ProductBackendController::class, 'create'])->name('products-create');
+                Route::post('/store', [ProductBackendController::class, 'store'])->name('products-store');
+                Route::get('show/{id}', [ProductBackendController::class, 'show'])->name('products-show');
+                Route::get('edit/{id}', [ProductBackendController::class, 'edit'])->name('products-edit');
+                Route::post('update/{id}', [ProductBackendController::class, 'update'])->name('products-update');
+                Route::get('softDelete/{id}', [ProductBackendController::class, 'softDelete'])->name('products-softDelete');
+                Route::get('/showSoftDelete', [ProductBackendController::class, 'showSoftDelete'])->name('products-showSoftDelete');
+                Route::get('softDeleteRestore/{id}', [ProductBackendController::class, 'softDeleteRestore'])->name('products-softDeleteRestore');
+                Route::get('/activeInactiveSingle/{id}', [ProductBackendController::class, 'activeInactiveSingle'])->name('products-activeInactiveSingle');
             });
 
             // Slider Routes :

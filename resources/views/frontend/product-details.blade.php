@@ -3,6 +3,7 @@
 @section('page', 'product-details')
 @section('title'){{ $productName }} | Aurum Detection Co.@endsection
 @section('product'){{ $slug }}@endsection
+@section('shell-class', 'app-scroll')
 @section('main-id', 'product-details-app')
 
 @section('styles')
@@ -10,97 +11,150 @@
 @endsection
 
 @section('content')
-@php
-    $gallery = is_array($product['gallery'] ?? null) ? $product['gallery'] : [];
-    $variants = is_array($product['variants'] ?? null) ? $product['variants'] : [];
-    $specs = is_array($product['specs'] ?? null) ? $product['specs'] : [];
-    $accessories = is_array($product['accessories'] ?? null) ? $product['accessories'] : [];
-    $mainImage = $gallery[0] ?? ($product['image'] ?? '');
-@endphp
-        <div class="pd animate-fade-in" data-product-name="{{ $product['name'] }}">
-          <div class="container-lux pd__inner">
+    @php
+        $gallery = is_array($product['gallery'] ?? null) ? $product['gallery'] : [];
+        $slides = $gallery !== [] ? $gallery : array_filter([$product['image'] ?? '']);
+        $slideCount = count($slides);
+        $variants = is_array($product['variants'] ?? null) ? $product['variants'] : [];
+        $specs = is_array($product['specs'] ?? null) ? $product['specs'] : [];
+        $accessories = is_array($product['accessories'] ?? null) ? $product['accessories'] : [];
+    @endphp
+    <div class="pd animate-fade-in" data-product-name="{{ $product['name'] }}" data-product-slug="{{ $slug }}"
+        data-product-model="{{ $product['model'] }}" data-product-image="{{ $product['image'] }}">
+        <div class="container-lux pd__inner">
             <div class="pd__crumb">
-              <a href="{{ route('frontend.products') }}">
-                <svg class="icon icon-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="m15 18-6-6 6-6"></path>
-                </svg>
-                Products
-              </a>
-              <span class="pd__crumb-sep">/</span>
-              <span class="pd__crumb-name">{{ $product['name'] }}</span>
+                <a href="{{ route('frontend.products') }}">
+                    <svg class="icon icon-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m15 18-6-6 6-6"></path>
+                    </svg>
+                    Products
+                </a>
+                <span class="pd__crumb-sep">/</span>
+                <span class="pd__crumb-name">{{ $product['name'] }}</span>
             </div>
             <div class="pd__layout">
-              <div class="pd__gallery">
-                <div class="pd__main-image" id="pd-main">
-                  @if ($mainImage !== '')
-                    <img id="pd-main-img" class="animate-scale-in" src="{{ $mainImage }}" alt="{{ $product['name'] }} view 1" />
-                  @endif
-                  @if (! empty($product['badge']))
-                    <span class="badge-gold" id="pd-main-badge">{{ $product['badge'] }}</span>
-                  @endif
-                </div>
-                <div class="pd__thumbs" id="pd-thumbs">
-                  @foreach ($gallery as $index => $image)
-                    <button type="button" class="pd__thumb{{ $index === 0 ? ' is-active' : '' }}" data-index="{{ $index }}">
-                      <img src="{{ $image }}" alt="Thumbnail {{ $index + 1 }}" loading="lazy" />
-                      <span class="pd__thumb-bar" @if ($index !== 0) hidden @endif></span>
-                    </button>
-                  @endforeach
-                </div>
-              </div>
-              <div class="pd__info">
-                <span class="pd__meta" id="pd-meta">{{ $product['categoryLabel'] }} — Model {{ $product['model'] }}</span>
-                <h1 class="pd__title" id="pd-title">{{ $product['name'] }}</h1>
-                <p class="pd__desc" id="pd-desc">{{ $product['description'] }}</p>
-                <div class="pd__price-row">
-                  <span class="pd__price" id="pd-price">{{ $product['price'] }}</span>
-                  <span class="pd__stock"><span class="pd__stock-dot"></span>In stock — ready to ship</span>
-                </div>
-                <div class="divider-gold"></div>
-                @if (count($variants) > 0)
-                  <div class="pd__variants" id="pd-variants">
-                    @foreach ($variants as $variant)
-                      @if (is_array($variant) && isset($variant['name']) && is_array($variant['options'] ?? null))
-                        <div class="pd__variant" data-variant="{{ $variant['name'] }}">
-                          <label class="pd__variant-label">
-                            <span>{{ $variant['name'] }}</span>
-                            <span class="pd__variant-error" data-variant-error="{{ $variant['name'] }}" hidden>Please select a {{ strtolower($variant['name']) }}</span>
-                          </label>
-                          <div class="pd__select">
-                            <button type="button" class="pd__select-btn" data-toggle="{{ $variant['name'] }}">
-                              <span class="pd__select-value pd__select-placeholder">Select {{ $variant['name'] }}</span>
-                              <svg class="icon icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="m6 9 6 6 6-6"></path>
-                              </svg>
-                            </button>
-                            <div class="pd__select-menu animate-fade-in" data-variant-menu="{{ $variant['name'] }}" hidden>
-                              @foreach ($variant['options'] as $option)
-                                <button type="button" class="pd__select-option" data-variant="{{ $variant['name'] }}" data-option="{{ $option }}">
-                                  <span>{{ $option }}</span>
-                                  <svg class="pd__option-check icon icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
-                                    <path d="M20 6 9 17l-5-5"></path>
-                                  </svg>
-                                </button>
-                              @endforeach
+                <div class="pd__gallery" id="pd-gallery"@if ($slideCount > 1) data-pd-gallery-multi @endif>
+                    <div class="pd__main-image" id="pd-main">
+                        @if ($slideCount > 0)
+                            <div class="pd__slider" id="pd-slider" role="region"
+                                aria-roledescription="carousel"
+                                aria-label="{{ $product['name'] }} images" tabindex="0">
+                                <div class="pd__slider-track" id="pd-slider-track">
+                                    @foreach ($slides as $index => $image)
+                                        <div class="pd__slide" data-index="{{ $index }}">
+                                            <img @if ($index === 0) id="pd-main-img" @endif
+                                                class="{{ $index === 0 ? 'animate-scale-in' : '' }}"
+                                                src="{{ $image }}"
+                                                alt="{{ $product['name'] }} view {{ $index + 1 }}"
+                                                draggable="false" loading="{{ $index === 0 ? 'eager' : 'lazy' }}" />
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @if ($slideCount > 1)
+                                    <button type="button" class="pd__nav pd__nav--prev" id="pd-nav-prev"
+                                        aria-label="Previous image" disabled>
+                                        <svg class="icon icon-5" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" aria-hidden="true">
+                                            <path d="m15 18-6-6 6-6"></path>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="pd__nav pd__nav--next" id="pd-nav-next"
+                                        aria-label="Next image">
+                                        <svg class="icon icon-5" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" aria-hidden="true">
+                                            <path d="m9 18 6-6-6-6"></path>
+                                        </svg>
+                                    </button>
+                                @endif
                             </div>
-                          </div>
+                        @endif
+                        @if (!empty($product['badge']))
+                            <span class="badge-gold" id="pd-main-badge">{{ $product['badge'] }}</span>
+                        @endif
+                    </div>
+                    @if ($slideCount > 1)
+                        <div class="pd__thumbs" id="pd-thumbs">
+                            @foreach ($slides as $index => $image)
+                                <button type="button" class="pd__thumb{{ $index === 0 ? ' is-active' : '' }}"
+                                    data-index="{{ $index }}" aria-label="Show image {{ $index + 1 }}"
+                                    aria-current="{{ $index === 0 ? 'true' : 'false' }}">
+                                    <img src="{{ $image }}" alt="" loading="lazy" draggable="false" />
+                                    <span class="pd__thumb-bar" @if ($index !== 0) hidden @endif></span>
+                                </button>
+                            @endforeach
                         </div>
-                      @endif
-                    @endforeach
-                  </div>
-                @endif
-                <div class="pd__actions">
-                  <button type="button" class="btn-gold" id="pd-cart">
-                    <svg class="icon icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
-                      <path d="M3 6h18"></path>
-                      <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                    Add to Cart
-                  </button>
-                  <a href="{{ route('frontend.contact') }}" class="btn-outline">Request Details</a>
+                    @endif
                 </div>
-                {{-- <div class="pd__tabs">
+                <div class="pd__info">
+                    <span class="pd__meta" id="pd-meta">{{ $product['categoryLabel'] }} — Model
+                        {{ $product['model'] }}</span>
+                    <h1 class="pd__title" id="pd-title">{{ $product['name'] }}</h1>
+                    <p class="pd__desc" id="pd-desc">{{ $product['description'] }}</p>
+                    <div class="pd__price-row">
+                        <span class="pd__price" id="pd-price">{{ $product['price'] }}</span>
+                        <span class="pd__stock"><span class="pd__stock-dot"></span>In stock — ready to ship</span>
+                    </div>
+                    <div class="divider-gold"></div>
+                    @if (count($variants) > 0)
+                        <div class="pd__variants" id="pd-variants">
+                            @foreach ($variants as $variant)
+                                @if (is_array($variant) && isset($variant['name']) && is_array($variant['options'] ?? null))
+                                    <div class="pd__variant" data-variant="{{ $variant['name'] }}">
+                                        <label class="pd__variant-label">
+                                            <span>{{ $variant['name'] }}</span>
+                                            <span class="pd__variant-error" data-variant-error="{{ $variant['name'] }}"
+                                                hidden>Please select a {{ strtolower($variant['name']) }}</span>
+                                        </label>
+                                        <div class="pd__select">
+                                            <button type="button" class="pd__select-btn"
+                                                data-toggle="{{ $variant['name'] }}">
+                                                <span class="pd__select-value pd__select-placeholder">Select
+                                                    {{ $variant['name'] }}</span>
+                                                <svg class="icon icon-4" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" aria-hidden="true">
+                                                    <path d="m6 9 6 6 6-6"></path>
+                                                </svg>
+                                            </button>
+                                            <div class="pd__select-menu animate-fade-in"
+                                                data-variant-menu="{{ $variant['name'] }}" hidden>
+                                                @foreach ($variant['options'] as $option)
+                                                    <button type="button" class="pd__select-option"
+                                                        data-variant="{{ $variant['name'] }}"
+                                                        data-option="{{ $option }}">
+                                                        <span>{{ $option }}</span>
+                                                        <svg class="pd__option-check icon icon-4" viewBox="0 0 24 24"
+                                                            fill="none" stroke="currentColor" stroke-width="1.5"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            aria-hidden="true" hidden>
+                                                            <path d="M20 6 9 17l-5-5"></path>
+                                                        </svg>
+                                                    </button>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+                    <div class="pd__actions">
+                        <button type="button" class="btn-gold" id="pd-cart">
+                            <svg class="icon icon-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                                <path d="M3 6h18"></path>
+                                <path d="M16 10a4 4 0 0 1-8 0"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                        <a href="{{ route('frontend.contact') }}" class="btn-outline">Request Details</a>
+                    </div>
+                    <p class="pd__cart-toast" id="pd-cart-toast" hidden>Added to your inquiry list.</p>
+                    {{-- <div class="pd__tabs">
                   <div class="pd__tablist" id="pd-tabs">
                     <button type="button" class="pd__tab is-active" data-tab="description">
                       <svg class="icon icon-3_5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -179,10 +233,10 @@
                     </div>
                   </div>
                 </div> --}}
-              </div>
+                </div>
             </div>
-          </div>
         </div>
+    </div>
 @endsection
 
 @section('scripts')

@@ -24,12 +24,14 @@
     </div>
     <script>
       window.AurumPaths = {
-        catalog: @json(asset('frontend/data/products.json')),
         products: @json(route('frontend.products')),
         contact: @json(route('frontend.contact')),
+        cart: @json(route('frontend.cart')),
         productBase: @json(url('/products'))
       };
     </script>
+    <script src="{{ asset('frontend/js/cart-storage.js') }}"></script>
+    <script src="{{ asset('frontend/js/cart-badge.js') }}"></script>
     @yield('scripts')
     <script>
       (window.AurumOnReady || []).forEach(function (fn) {

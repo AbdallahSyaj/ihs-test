@@ -118,6 +118,15 @@
                                 <span>{{ __('dashboard.shared.modules.categories') }}</span>
                             </a>
                         </li>
+
+                        {{-- products --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark"
+                                href="{{ route('super_admin.products-index') }}">
+                                <i class="mdi mdi-package-variant-closed"></i>
+                                <span>{{ __('dashboard.shared.modules.products') }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

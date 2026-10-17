@@ -57,6 +57,24 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="slug"
+                                        class="form-control border border-info @error('slug') border-danger @enderror"
+                                        id="category-slug"
+                                        value="{{ old('slug', $category->slug ?? '') }}"
+                                        placeholder="{{ __('dashboard.categories.slug') }}"
+                                        autocomplete="off">
+                                    <label for="category-slug">
+                                        <i data-feather="link" class="feather-sm text-info fill-white me-2"></i>{{ __('dashboard.categories.slug') }}
+                                        <strong class="text-danger">
+                                            @error('slug')
+                                                ( {{ $message }} )
+                                            @enderror
+                                        </strong>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-success">
                             <i data-feather="save" class="feather-sm fill-white me-2"></i>{{ __('dashboard.shared.save_updates') }}

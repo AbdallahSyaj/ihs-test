@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Services\Catalog\DatabaseStorefrontCatalogProvider;
 use App\Http\Requests\Frontend\StoreContactRequest;
+use App\Http\Requests\Frontend\StoreProductInquiryRequest;
 use App\Models\AboutUs;
 use App\Models\ContactUs;
 use App\Models\ContactUsRequest;
+use App\Models\ProductInquiryRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class PageController extends Controller
 {
+    public function __construct(
+        private readonly DatabaseStorefrontCatalogProvider $storefrontCatalog,
+    ) {}
     public function home(): View
     {
         return view('frontend.home');
@@ -27,7 +33,7 @@ class PageController extends Controller
 
     public function products(): View
     {
-        $catalog = $this->loadCatalog();
+        $catalog = $this->storefrontCatalog->catalog();
 
         return view('frontend.products', [
             'categories' => $catalog['categories'],
@@ -37,7 +43,7 @@ class PageController extends Controller
 
     public function show(string $slug): View
     {
-        $product = $this->catalogProduct($slug);
+        $product = $this->storefrontCatalog->findProduct($slug);
 
         if ($product === null) {
             abort(404);
@@ -50,59 +56,36 @@ class PageController extends Controller
         ]);
     }
 
-    /**
-     * @return array{categories: list<array<string, mixed>>, products: list<array<string, mixed>>}
-     */
-    private function loadCatalog(): array
-    {
-        $empty = ['categories' => [], 'products' => []];
-        $path = public_path('frontend/data/products.json');
-        if (! is_file($path)) {
-            return $empty;
-        }
-
-        $catalog = json_decode((string) file_get_contents($path), true);
-        if (! is_array($catalog)) {
-            return $empty;
-        }
-
-        $categories = $catalog['categories'] ?? null;
-        $products = $catalog['products'] ?? null;
-        if (! is_array($categories) || ! is_array($products)) {
-            return $empty;
-        }
-
-        return [
-            'categories' => $categories,
-            'products' => $products,
-        ];
-    }
-
-    /**
-     * @return array<string, mixed>|null
-     */
-    private function catalogProduct(string $slug): ?array
-    {
-        foreach ($this->loadCatalog()['products'] as $product) {
-            if (! is_array($product) || ($product['id'] ?? null) !== $slug) {
-                continue;
-            }
-
-            if (! is_string($product['name'] ?? null) || $product['name'] === '') {
-                return null;
-            }
-
-            return $product;
-        }
-
-        return null;
-    }
-
     public function contact(): View
     {
         return view('frontend.contact', [
             'contactUs' => ContactUs::query()->first(),
         ]);
+    }
+
+    public function cart(): View
+    {
+        return view('frontend.cart');
+    }
+
+    public function storeProductInquiry(StoreProductInquiryRequest $request): JsonResponse|RedirectResponse
+    {
+        $data = $request->validated();
+
+        ProductInquiryRequest::query()->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'items' => $data['items'],
+        ]);
+
+        $message = 'Thank you — your equipment inquiry has been received. We will contact you shortly.';
+
+        if ($request->expectsJson()) {
+            return response()->json(['message' => $message]);
+        }
+
+        return redirect()->route('frontend.cart')->with('inquiry_success', $message);
     }
 
     public function store(StoreContactRequest $request): JsonResponse|RedirectResponse

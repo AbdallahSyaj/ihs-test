@@ -42,6 +42,7 @@
                                 <thead>
                                     <tr>
                                         <th>{{ __('dashboard.shared.name') }}</th>
+                                        <th>{{ __('dashboard.categories.slug') }}</th>
                                         <th>{{ __('dashboard.shared.date_time') }}</th>
                                         <th>{{ __('dashboard.shared.control') }}</th>
                                     </tr>
@@ -51,6 +52,7 @@
                                         @foreach ($categories as $category)
                                             <tr>
                                                 <td>{{ $category->name ?? '----' }}</td>
+                                                <td><code>{{ $category->slug ?? '----' }}</code></td>
                                                 <td>{!! isset($category->created_at)
                                                     ? '<strong>' . __('dashboard.shared.date_label') . ' : </strong>' .
                                                         date('Y -m-d', strtotime($category->created_at)) .

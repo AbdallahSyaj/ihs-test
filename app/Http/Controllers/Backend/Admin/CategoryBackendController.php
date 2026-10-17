@@ -27,6 +27,7 @@ class CategoryBackendController extends Controller
     {
         $created_data = [
             'name' => $request->name,
+            'slug' => $request->slug,
         ];
 
         DB::transaction(function () use ($created_data) {
@@ -52,6 +53,7 @@ class CategoryBackendController extends Controller
         if ($category) {
             $updated_data = [
                 'name' => $request->name,
+                'slug' => $request->slug,
             ];
 
             DB::transaction(function () use ($updated_data, $category) {
@@ -68,6 +70,12 @@ class CategoryBackendController extends Controller
     {
         $category = Category::find($id);
         if ($category) {
+            if ($category->products()->exists()) {
+                return redirect()
+                    ->route('super_admin.categories-index')
+                    ->with('danger', __('dashboard.categories.delete_has_products'));
+            }
+
             DB::transaction(function () use ($category) {
                 $category->delete();
             });
@@ -100,6 +108,16 @@ class CategoryBackendController extends Controller
             return redirect()
                 ->route('super_admin.categories-showSoftDelete')
                 ->with('danger', __('dashboard.categories.restore_name_conflict'));
+        }
+
+        $slugTaken = Category::query()
+            ->where('slug', $category->slug)
+            ->exists();
+
+        if ($slugTaken) {
+            return redirect()
+                ->route('super_admin.categories-showSoftDelete')
+                ->with('danger', __('dashboard.categories.restore_slug_conflict'));
         }
 
         DB::transaction(function () use ($category) {

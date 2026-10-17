@@ -160,6 +160,14 @@
   gap: 1.5rem;
 }
 
+.products-grid[hidden] {
+  display: none !important;
+}
+
+.products-grid .product-card[hidden] {
+  display: none !important;
+}
+
 .products-empty {
   padding-top: 6rem;
   padding-bottom: 6rem;

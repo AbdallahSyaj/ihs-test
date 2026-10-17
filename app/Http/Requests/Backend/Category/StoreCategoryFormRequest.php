@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests\Backend\Category;
 
+use App\Http\Requests\Backend\Category\Concerns\PreparesCategorySlug;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreCategoryFormRequest extends FormRequest
 {
+    use PreparesCategorySlug;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -17,12 +19,7 @@ class StoreCategoryFormRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        $name = $this->input('name');
-        if (is_string($name)) {
-            $this->merge([
-                'name' => trim($name),
-            ]);
-        }
+        $this->prepareCategoryNameAndSlug(generateSlugWhenEmpty: true);
     }
 
     /**
@@ -37,6 +34,7 @@ class StoreCategoryFormRequest extends FormRequest
                 'max:255',
                 Rule::unique('categories', 'name')->whereNull('deleted_at'),
             ],
+            'slug' => $this->categorySlugRules(),
         ];
     }
 }
