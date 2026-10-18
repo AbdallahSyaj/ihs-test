@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\Admin\AboutUsBackendController;
 use App\Http\Controllers\Backend\Admin\CategoryBackendController;
 use App\Http\Controllers\Backend\Admin\ProductBackendController;
+use App\Http\Controllers\Backend\Admin\ProductInquiryRequestBackendController;
 use App\Http\Controllers\Backend\Admin\AdminBackendController;
 use App\Http\Controllers\Backend\Admin\ContactUsBackendController;
 use App\Http\Controllers\Backend\Admin\ContactUsRequestBackendController;
@@ -116,6 +117,13 @@ Route::group([
             Route::group(['prefix' => 'contact_us_requests'], function () {
                 Route::get('/index', [ContactUsRequestBackendController::class, 'index'])->name('contact_us_requests-index');
                 Route::get('destroyMessage/{id}', [ContactUsRequestBackendController::class, 'destroyMessage'])->name('contact_us_requests-destroyMessage');
+            });
+
+            Route::group(['prefix' => 'product_inquiry_requests'], function () {
+                Route::get('/index', [ProductInquiryRequestBackendController::class, 'index'])->name('product_inquiry_requests-index');
+                Route::get('show/{id}', [ProductInquiryRequestBackendController::class, 'show'])->name('product_inquiry_requests-show');
+                Route::post('show/{id}/reply', [ProductInquiryRequestBackendController::class, 'storeReply'])->name('product_inquiry_requests-reply');
+                Route::post('show/{inquiryId}/outbound/{outboundId}/retry', [ProductInquiryRequestBackendController::class, 'retryOutbound'])->name('product_inquiry_requests-retry_outbound');
             });
 
             // privacy_policies

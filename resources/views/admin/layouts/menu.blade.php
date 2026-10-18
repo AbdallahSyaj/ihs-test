@@ -146,6 +146,15 @@
                                 <span>{{ __('dashboard.shared.modules.contact_us_requests') }}</span>
                             </a>
                         </li>
+
+                        {{-- product inquiry requests --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark"
+                                href="{{ route('super_admin.product_inquiry_requests-index') }}">
+                                <i class="mdi mdi-cart-outline"></i>
+                                <span>{{ __('dashboard.shared.modules.product_inquiry_requests') }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
